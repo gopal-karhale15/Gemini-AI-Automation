@@ -13,15 +13,21 @@ public class GeminiService {
     @Cacheable(value = "geminiResponses", key = "#prompt")
     public String generateResponse(String prompt) {
 
-        GenerateContentResponse response =
-                client.models.generateContent(
-                        "gemini-3.5-flash-lite",
-                        prompt,
-                        null
-                );
+        try {
+            GenerateContentResponse response =
+                    client.models.generateContent(
+                            "gemini-3.5-flash-lite",
+                            prompt,
+                            null
+                    );
 
-        String result = response.text();
+            String result = response.text();
 
-        return result == null ? "" : result;
+            return result == null ? "" : result;
+
+        } catch (Exception ex) {
+            throw new RuntimeException(
+                    "Gemini API request failed", ex);
+        }
     }
 }
