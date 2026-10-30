@@ -1,8 +1,8 @@
-
 package com.example.geminiautomation;
 
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +10,7 @@ public class GeminiService {
 
     private final Client client = new Client();
 
+    @Cacheable(value = "geminiResponses", key = "#prompt")
     public String generateResponse(String prompt) {
 
         GenerateContentResponse response =
@@ -20,6 +21,7 @@ public class GeminiService {
                 );
 
         String result = response.text();
+
         return result == null ? "" : result;
     }
 }

@@ -14,6 +14,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+.idea/
 .idea
 *.iws
 *.iml
@@ -39,5 +40,8 @@ build/
 application-local.properties
 application-secret.properties
 
-# Build files
-target/
+# Logs
+*.log
+
+# Local environment files
+.env
